@@ -66,6 +66,20 @@ async (req, res) => {
             rating
         } = req.body;
 
+        // Rating validation
+        if (
+            rating < 1 ||
+            rating > 5
+        ) {
+
+            return res
+            .status(400)
+            .json({
+                message:
+                "Rating must be between 1 and 5"
+            });
+        }
+
         // Check already rated
         const [existing] =
         await db.query(
@@ -91,6 +105,7 @@ async (req, res) => {
             });
         }
 
+        // Insert Rating
         await db.query(
             `INSERT INTO ratings
             (
@@ -141,11 +156,51 @@ async (req, res) => {
             rating
         } = req.body;
 
+        // Rating validation
+        if (
+            rating < 1 ||
+            rating > 5
+        ) {
+
+            return res
+            .status(400)
+            .json({
+                message:
+                "Rating must be between 1 and 5"
+            });
+        }
+
+        // Check if rating exists
+        const [existingRating] =
+        await db.query(
+            `SELECT *
+             FROM ratings
+             WHERE user_id=?
+             AND store_id=?`,
+            [
+                user_id,
+                store_id
+            ]
+        );
+
+        if (
+            existingRating.length === 0
+        ) {
+
+            return res
+            .status(404)
+            .json({
+                message:
+                "No rating found"
+            });
+        }
+
+        // Update rating
         await db.query(
             `UPDATE ratings
-            SET rating=?
-            WHERE user_id=?
-            AND store_id=?`,
+             SET rating=?
+             WHERE user_id=?
+             AND store_id=?`,
             [
                 rating,
                 user_id,
