@@ -28,9 +28,17 @@ require(
 "./routes/userRoutes"
 );
 
+const ownerRoutes =
+require("./routes/ownerRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use(
+    "/api/owner",
+    ownerRoutes
+);
 
 // Database
 require("./config/db");

@@ -227,8 +227,90 @@ async (req, res) => {
     }
 };
 
+// ====================
+// SEARCH & FILTER STORES
+// ====================
+
+// ====================
+// SEARCH & FILTER STORES
+// ====================
+const searchStores = async (req, res) => {
+
+    try {
+
+        const {
+            search = "",
+            minRating,
+            maxRating
+        } = req.query;
+
+        let query = `
+            SELECT
+                s.id,
+                s.name,
+                s.email,
+                s.address,
+                ROUND(AVG(r.rating),1) AS averageRating
+            FROM stores s
+            LEFT JOIN ratings r
+            ON s.id = r.store_id
+            WHERE 1=1
+        `;
+
+        let params = [];
+
+        // Search by name/email/address
+        if (search) {
+            query += `
+                AND (
+                    s.name LIKE ?
+                    OR s.email LIKE ?
+                    OR s.address LIKE ?
+                )
+            `;
+            params.push(
+                `%${search}%`,
+                `%${search}%`,
+                `%${search}%`
+            );
+        }
+
+        query += ` GROUP BY s.id `;
+
+        // Rating filter (HAVING used for aggregate)
+        if (minRating || maxRating) {
+            query += ` HAVING 1=1 `;
+
+            if (minRating) {
+                query += ` AND averageRating >= ? `;
+                params.push(minRating);
+            }
+
+            if (maxRating) {
+                query += ` AND averageRating <= ? `;
+                params.push(maxRating);
+            }
+        }
+
+        const [stores] = await db.query(query, params);
+
+        res.status(200).json(stores);
+
+    } catch (error) {
+
+        console.log("Search Error:", error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+    }
+};
+
+
+
 module.exports = {
     getStores,
     submitRating,
-    updateRating
+    updateRating,
+    searchStores
 };

@@ -49,5 +49,12 @@ router.put(
     userController.updateRating
 );
 
+//Search Stores
+router.get(
+    "/search-stores",
+    verifyToken,
+    userController.searchStores
+);
+
 module.exports =
 router;
