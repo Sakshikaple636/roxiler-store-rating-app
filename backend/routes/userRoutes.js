@@ -56,5 +56,18 @@ router.get(
     userController.searchStores
 );
 
+//Password 
+router.put(
+    "/update-password",
+    verifyToken,
+    roleMiddleware([
+        "USER",
+        "OWNER",
+        "ADMIN"
+    ]),
+    userController.updatePassword
+);
+
+
 module.exports =
 router;

@@ -307,10 +307,111 @@ const searchStores = async (req, res) => {
 };
 
 
+const bcrypt = require("bcryptjs");
+
+// ====================
+// UPDATE PASSWORD
+// ====================
+// ====================
+// UPDATE PASSWORD
+// ====================
+const updatePassword =
+async (req, res) => {
+
+    try {
+
+        const bcrypt =
+        require("bcryptjs");
+
+        const user_id =
+        req.user.id;
+
+        const {
+            oldPassword,
+            newPassword
+        } = req.body;
+
+        // Get user
+        const [users] =
+        await db.query(
+            `SELECT *
+            FROM users
+            WHERE id=?`,
+            [user_id]
+        );
+
+        const user =
+        users[0];
+
+        // Check user exists
+        if (!user) {
+
+            return res
+            .status(404)
+            .json({
+                message:
+                "User not found"
+            });
+        }
+
+        // Check old password
+        const isMatch =
+        await bcrypt.compare(
+            oldPassword,
+            user.password
+        );
+
+        if (!isMatch) {
+
+            return res
+            .status(400)
+            .json({
+                message:
+                "Old Password Incorrect"
+            });
+        }
+
+        // Hash new password
+        const hashedPassword =
+        await bcrypt.hash(
+            newPassword,
+            10
+        );
+
+        // Update password
+        await db.query(
+            `UPDATE users
+            SET password=?
+            WHERE id=?`,
+            [
+                hashedPassword,
+                user_id
+            ]
+        );
+
+        res.status(200).json({
+            message:
+            "Password Updated Successfully"
+        });
+
+    } catch (error) {
+
+        console.log(
+            "Update Password Error:",
+            error
+        );
+
+        res.status(500).json({
+            message:
+            "Server Error"
+        });
+    }
+};
 
 module.exports = {
     getStores,
     submitRating,
     updateRating,
-    searchStores
+    searchStores,
+    updatePassword
 };

@@ -9,6 +9,11 @@ require(
     "../controllers/authController"
 );
 
+const verifyToken =
+require(
+    "../middleware/authMiddleware"
+);
+
 // Register
 router.post(
     "/register",
@@ -19,6 +24,12 @@ router.post(
 router.post(
     "/login",
     authController.login
+);
+
+router.put(
+    "/change-password",
+    verifyToken,
+    authController.changePassword
 );
 
 module.exports =
