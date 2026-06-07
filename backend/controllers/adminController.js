@@ -16,6 +16,36 @@ const addUser = async (req, res) => {
             role
         } = req.body;
 
+        if (
+  name.length < 20 ||
+  name.length > 60
+) {
+  return res.status(400).json({
+    message:
+      "Name must be between 20 and 60 characters"
+  });
+}
+
+if (
+  address.length > 400
+) {
+  return res.status(400).json({
+    message:
+      "Address cannot exceed 400 characters"
+  });
+}
+
+const passwordRegex =
+/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,16}$/;
+
+if (
+  !passwordRegex.test(password)
+) {
+  return res.status(400).json({
+    message:
+      "Password must be 8-16 characters and contain at least one uppercase letter and one special character"
+  });
+}
         // Check existing user
         const [existingUser] =
         await db.query(

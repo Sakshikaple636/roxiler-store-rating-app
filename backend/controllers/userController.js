@@ -65,7 +65,16 @@ async (req, res) => {
             store_id,
             rating
         } = req.body;
-
+        
+        if (
+  rating < 1 ||
+  rating > 5
+) {
+  return res.status(400).json({
+    message:
+      "Rating must be between 1 and 5"
+  });
+}
         // Rating validation
         if (
             rating < 1 ||
@@ -156,6 +165,15 @@ async (req, res) => {
             rating
         } = req.body;
 
+        if (
+  rating < 1 ||
+  rating > 5
+) {
+  return res.status(400).json({
+    message:
+      "Rating must be between 1 and 5"
+  });
+}
         // Rating validation
         if (
             rating < 1 ||
@@ -227,9 +245,7 @@ async (req, res) => {
     }
 };
 
-// ====================
-// SEARCH & FILTER STORES
-// ====================
+
 
 // ====================
 // SEARCH & FILTER STORES
@@ -309,9 +325,7 @@ const searchStores = async (req, res) => {
 
 const bcrypt = require("bcryptjs");
 
-// ====================
-// UPDATE PASSWORD
-// ====================
+
 // ====================
 // UPDATE PASSWORD
 // ====================
