@@ -84,15 +84,24 @@ function Login() {
   return (
 
     <div
-      style={{
-        width: "400px",
-        margin: "50px auto"
-      }}
-    >
+  style={{
+    width: "400px",
+    margin: "100px auto",
+    padding: "30px",
+    boxShadow: "0px 0px 10px lightgray",
+    borderRadius: "10px",
+    backgroundColor: "white"
+  }}
+>
 
-      <h2>
-        Login
-      </h2>
+     <h2
+  style={{
+    textAlign: "center",
+    color: "#1976d2"
+  }}
+>
+  Store Rating App
+</h2>
 
       <form
         onSubmit={
@@ -101,31 +110,44 @@ function Login() {
       >
 
         <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={
-            handleChange
-          }
-          required
-        />
+  type="email"
+  name="email"
+  placeholder="Email"
+  onChange={handleChange}
+  required
+  style={{
+    width: "100%",
+    padding: "10px"
+  }}
+/>
 
         <br /><br />
 
         <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={
-            handleChange
-          }
-          required
-        />
+  type="password"
+  name="password"
+  placeholder="Password"
+  onChange={handleChange}
+  required
+  style={{
+    width: "100%",
+    padding: "10px"
+  }}
+/>
 
         <br /><br />
 
         <button
           type="submit"
+          style={{
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#1976d2",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  }}
         >
           Login
         </button>
@@ -140,6 +162,15 @@ function Login() {
             "/register"
           )
         }
+         style={{
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#4caf50",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer"
+  }}
       >
         Register
       </button>

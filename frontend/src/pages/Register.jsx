@@ -60,13 +60,22 @@ function Register() {
     <div
       style={{
         width: "400px",
-        margin: "50px auto"
+        margin: "50px auto",
+        padding: "30px",
+        boxShadow: "0px 0px 10px lightgray",
+        borderRadius: "10px",
+        backgroundColor: "white"
       }}
     >
 
-      <h2>
-        Register
-      </h2>
+    <h2
+  style={{
+    textAlign: "center",
+    color: "#1976d2"
+  }}
+>
+  Create Account
+</h2>
 
       <form
         onSubmit={
