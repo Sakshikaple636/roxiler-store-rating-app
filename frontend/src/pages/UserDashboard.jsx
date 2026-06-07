@@ -134,13 +134,19 @@ function UserDashboard() {
     };
 
   const logout =
-    () => {
+() => {
 
-      localStorage.clear();
+  localStorage.removeItem(
+    "token"
+  );
 
-      window.location.href =
-        "/";
-    };
+  localStorage.removeItem(
+    "user"
+  );
+
+  window.location.href =
+    "/";
+};
 
   return (
 

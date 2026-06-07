@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import OwnerDashboard from "./pages/OwnerDashboard";
 
+
 function App() {
 
   return (
@@ -41,6 +42,8 @@ function App() {
           path="/owner"
           element={<OwnerDashboard />}
         />
+
+        
 
       </Routes>
 
