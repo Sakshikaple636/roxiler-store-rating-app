@@ -112,6 +112,21 @@ DB_NAME=store_rating_db
 JWT_SECRET=your_secret_key
 ```
 
+## Demo Credentials
+
+### Admin
+Email: admin@gmail.com  
+Password: Admin@123
+
+### Store Owner
+Email: owner@gmail.com  
+Password: Owner@123
+
+### Normal User
+Email: sakshiuser@gmail.com  
+Password: User@123
+
+
 ## API Features
 
 ### Auth APIs
